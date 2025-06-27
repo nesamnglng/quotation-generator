@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quotation Generator - TOKO TERANG</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* General Body Styles */
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f7f6;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Container for the form */
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #ffffff;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Headers */
+        h1 {
+            color: #0056b3;
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 2.2em;
+        }
+
+        h2 {
+            color: #333;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-size: 1.6em;
+            border-bottom: 2px solid #0056b3;
+            padding-bottom: 5px;
+        }
+
+        /* Form Grouping and Inputs */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        textarea,
+        select {
+            width: calc(100% - 22px);
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1em;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+            background-color: #fefefe;
+        }
+
+        input[type="text"]:focus,
+        input[type="number"]:focus,
+        textarea:focus,
+        select:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
+            outline: none;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        /* Item Group for Products */
+        .item-group {
+            border: 1px solid #e0e0e0;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .item-group label {
+            margin-top: 10px;
+            margin-bottom: 5px;
+        }
+
+        .item-actions {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 15px;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            margin-left: 10px;
+        }
+
+        .btn-primary {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #218838;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+
+        .btn-danger {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background-color: #c82333;
+            transform: translateY(-2px);
+        }
+
+        .btn-action-group {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        /* Responsive Design for Mobile */
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+
+            .container {
+                margin: 10px auto;
+                padding: 15px;
+            }
+
+            h1 {
+                font-size: 1.8em;
+            }
+
+            h2 {
+                font-size: 1.4em;
+            }
+
+            input[type="text"],
+            input[type="number"],
+            textarea,
+            select {
+                width: 100%; /* Full width on smaller screens */
+                padding: 10px;
+            }
+
+            .btn {
+                padding: 10px 15px;
+                font-size: 0.9em;
+                margin-left: 5px;
+            }
+
+            .btn-action-group {
+                flex-direction: column; /* Stack buttons vertically */
+            }
+
+            .btn-action-group .btn {
+                width: 100%;
+                margin: 5px 0;
+            }
+        }
+
+        /* PDF Content Styling (will be copied to PDF) */
+        #pdf-content {
+            display: none; /* Hidden by default, shown for PDF generation */
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            font-size: 10pt;
+            color: #333;
+            background-color: #fff;
+        }
+
+        #pdf-header {
+            text-align: left;
+            margin-bottom: 25px;
+        }
+        #pdf-header h2 {
+            font-size: 18pt;
+            margin: 0;
+            color: #0056b3;
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+        #pdf-header p {
+            margin: 2pt 0;
+            font-size: 8pt;
+            color: #555;
+        }
+        #pdf-quotation-title {
+            text-align: center;
+            font-size: 14pt;
+            font-weight: bold;
+            margin-top: 35px;
+            margin-bottom: 25px;
+        }
+
+        #pdf-customer-info {
+            font-size: 9pt;
+            margin-bottom: 15px;
+            border-bottom: none;
+            padding-bottom: 10px;
+            line-height: 1.4;
+        }
+        #pdf-customer-info p { margin: 2px 0; }
+        #pdf-customer-info strong {
+            display: inline-block;
+            width: 80px;
+        }
+
+
+        #pdf-items-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 0px;
+        }
+        #pdf-items-table th, #pdf-items-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            vertical-align: top;
+            font-size: 9pt;
+        }
+        #pdf-items-table th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+            text-align: center;
+        }
+        
+        /* Styling untuk kolom harga agar Rp rata kiri, nilai rata kanan */
+        #pdf-items-table .unit-price-col,
+        #pdf-items-table .amount-col,
+        #pdf-items-table .total-amount-col {
+            text-align: right;
+            position: relative;
+            padding-left: 25px;
+        }
+        #pdf-items-table .unit-price-col .currency-symbol,
+        #pdf-items-table .amount-col .currency-symbol,
+        #pdf-items-table .total-amount-col .currency-symbol {
+            position: absolute;
+            left: 8px;
+            top: 8px;
+        }
+
+
+        /* Rata tengah untuk qty, spec, uom */
+        #pdf-items-table .qty-col,
+        #pdf-items-table .spec-col,
+        #pdf-items-table .uom-col {
+            text-align: center;
+        }
+
+
+        #pdf-items-table .qty-col { width: 50px; }
+        #pdf-items-table .uom-col { width: 60px; }
+        /* Lebar kolom harga */
+        #pdf-items-table .unit-price-col { width: 100px; }
+        #pdf-items-table .amount-col, #pdf-items-table .total-amount-col { width: 100px; }
+
+
+        /* Penyesuaian agar baris TOTAL menyatu */
+        #pdf-items-table .label-col {
+            background-color: #f2f2f2;
+            font-weight: bold;
+            text-align: right;
+            border-left: 1px solid #ddd;
+        }
+        #pdf-items-table .value-col {
+            text-align: right;
+            font-weight: bold;
+            color: #0056b3;
+        }
+
+        #pdf-terms-contact {
+            margin-top: 15px;
+            font-size: 9pt;
+            display: grid;
+            grid-template-columns: 120px 1fr;
+            gap: 2px 0px;
+            margin-bottom: 20px;
+        }
+        #pdf-terms-contact p { margin: 0; }
+        #pdf-terms-contact span {
+            font-weight: bold;
+        }
+
+        #pdf-signature {
+            margin-top: 30px;
+            text-align: right; /* Rata kanan untuk seluruh blok tanda tangan */
+        }
+        /* Kontainer untuk teks dan gambar tanda tangan agar bisa rata tengah di dalam blok rata kanan */
+        #pdf-signature .signature-block-inner {
+            display: inline-block;
+            text-align: center; /* Rata tengah teks dan gambar di dalam blok ini */
+        }
+        #pdf-signature p { margin: 2px 0; }
+        #pdf-signature strong { font-size: 10pt; }
+        #pdf-signature .signature-image {
+            max-width: 100px;
+            height: auto;
+            margin-top: 5px;
+            margin-bottom: 5px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+
+        /* Media Print Styles - Disesuaikan untuk window.print() */
+        @media print {
+            body > *:not(#pdf-content) {
+                display: none !important;
+            }
+            #pdf-content {
+                display: block !important;
+                position: relative;
+                width: 210mm; /* Lebar A4 */
+                min-height: 297mm; /* Tinggi A4 */
+                padding: 10mm 15mm !important; /* Padding halaman untuk cetak, kurangi top padding */
+                box-sizing: border-box;
+                margin: 0 !important;
+            }
+
+            #pdf-content h2, #pdf-content p, #pdf-content table {
+                font-size: 9pt;
+            }
+            #pdf-header h2 { font-size: 18pt; }
+            #pdf-quotation-title { font-size: 14pt; }
+            
+            /* Penyesuaian untuk cetak */
+            #pdf-items-table .unit-price-col,
+            #pdf-items-table .amount-col,
+            #pdf-items-table .total-amount-col {
+                 text-align: right;
+                 padding-left: 25px;
+            }
+            #pdf-items-table .unit-price-col .currency-symbol,
+            #pdf-items-table .amount-col .currency-symbol,
+            #pdf-items-table .total-amount-col .currency-symbol {
+                position: absolute;
+                left: 8px;
+                top: 8px;
+            }
+
+            /* Hiden input fields in print */
+            input, textarea, select {
+                border: none !important;
+                background: transparent !important;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Quotation Generator - TOKO TERANG</h1>
+
+        <form id="quotationForm">
+            <h2>Customer Information</h2>
+            <div class="form-group">
+                <label for="companyName">To:</label>
+                <select id="companyName" name="companyName" onchange="checkNewCompany(this.value)">
+                    <option value="">-- Select or Add New Company --</option>
+                    <option value="PT. J Resources Bolaang Mongondow">PT. J Resources Bolaang Mongondow</option>
+                    <option value="addNew">Add New Company...</option>
+                </select>
+                <input type="text" id="newCompanyName" name="newCompanyName" placeholder="Enter new company name" style="display:none; margin-top: 10px;">
+            </div>
+
+            <div class="form-group">
+                <label for="prNumber">PR Number:</label>
+                <input type="text" id="prNumber" name="prNumber" required>
+            </div>
+
+            <div class="form-group">
+                <label for="validityPrice">Validity Price (Optional):</label>
+                <input type="text" id="validityPrice" name="validityPrice">
+            </div>
+
+            <h2>Product Details</h2>
+            <div id="product-items-container">
+                <div class="item-group" data-item-id="1">
+                    <label for="item_description_1">Description:</label>
+                    <textarea class="item-description" name="item_description[]" id="item_description_1" rows="3" placeholder="e.g., PAINT ROLL (KUAS ROLL) 4&quot;" required></textarea>
+                    
+                    <div class="form-group">
+                        <label for="item_image_upload_1">Upload Image (Optional):</label>
+                        <input type="file" class="item-image-upload" name="item_image_upload[]" id="item_image_upload_1" accept="image/*" onchange="previewImage(this)">
+                        <input type="hidden" class="item-image-data" name="item_image_data[]">
+                        <div class="image-preview-container" style="margin-top: 10px; border: 1px solid #ddd; padding: 5px; text-align: center; display: none;">
+                            <img class="item-image-preview" src="" alt="Image Preview" style="max-width: 100px; max-height: 100px; display: none;">
+                        </div>
+                    </div>
+                    <label for="item_spec_1">Spec:</label>
+                    <input type="text" class="item-spec" name="item_spec[]" id="item_spec_1" placeholder="e.g., Oud-2">
+
+                    <label for="item_qty_1">Qty:</label>
+                    <input type="number" class="item-qty" name="item_qty[]" id="item_qty_1" min="1" value="1" required>
+
+                    <label for="item_uom_1">UOM:</label>
+                    <input type="text" class="item-uom" name="item_uom[]" id="item_uom_1" placeholder="e.g., PCS" required>
+
+                    <label for="item_unit_price_1">Unit Price (Rp):</label>
+                    <input type="number" class="item-unit-price" name="item_unit_price[]" id="item_unit_price_1" min="0" value="0" step="1000" required>
+
+                    <label for="item_amount_1">Amount (Rp):</label>
+                    <input type="text" class="item-amount" name="item_amount[]" id="item_amount_1" value="0" readonly>
+
+                    <div class="item-actions">
+                        <button type="button" class="btn btn-danger" onclick="removeItem(this)">Remove Item</button>
+                    </div>
+                </div>
+            </div>
+
+            <button type="button" class="btn btn-secondary" onclick="addItem()">Add Another Product</button>
+
+            <div class="btn-action-group">
+                <button type="button" class="btn btn-primary" onclick="generatePdf()">Generate PDF</button>
+            </div>
+        </form>
+    </div>
+
+    <div id="pdf-content">
+        </div>
+
+    <script>
+        let itemCounter = 1;
+        const defaultCompanies = ["PT. J Resources Bolaang Mongondow"];
+
+        document.addEventListener('DOMContentLoaded', function() {
+            updateItemAmount(document.querySelector('.item-group'));
+            document.getElementById('product-items-container').addEventListener('input', function(event) {
+                if (event.target.classList.contains('item-qty') || event.target.classList.contains('item-unit-price')) {
+                    updateItemAmount(event.target.closest('.item-group'));
+                }
+            });
+            // Add event listener for initial image upload input
+            document.querySelector('.item-image-upload').addEventListener('change', function() {
+                previewImage(this);
+            });
+            populateCompanyDropdown();
+        });
+
+        function populateCompanyDropdown() {
+            const select = document.getElementById('companyName');
+            select.innerHTML = '<option value="">-- Select or Add New Company --</option>';
+            const uniqueCompanies = new Set(defaultCompanies);
+            uniqueCompanies.forEach(company => {
+                const option = document.createElement('option');
+                option.value = company;
+                option.textContent = company;
+                select.appendChild(option);
+            });
+            const addNewOption = document.createElement('option');
+            addNewOption.value = "addNew";
+            addNewOption.textContent = "Add New Company...";
+            select.appendChild(addNewOption);
+        }
+
+        function checkNewCompany(selectedValue) {
+            const newCompanyNameInput = document.getElementById('newCompanyName');
+            if (selectedValue === 'addNew') {
+                newCompanyNameInput.style.display = 'block';
+                newCompanyNameInput.setAttribute('required', 'true');
+            } else {
+                newCompanyNameInput.style.display = 'none';
+                newCompanyNameInput.removeAttribute('required');
+                newCompanyNameInput.value = '';
+            }
+        }
+
+        function addItem() {
+            itemCounter++;
+            const container = document.getElementById('product-items-container');
+            const newItem = document.createElement('div');
+            newItem.className = 'item-group';
+            newItem.setAttribute('data-item-id', itemCounter);
+            newItem.innerHTML = `
+                <label for="item_description_${itemCounter}">Description:</label>
+                <textarea class="item-description" name="item_description[]" id="item_description_${itemCounter}" rows="3" placeholder="e.g., PAINT ROLL (KUAS ROLL) 4&quot;" required></textarea>
+
+                <div class="form-group">
+                    <label for="item_image_upload_${itemCounter}">Upload Image (Optional):</label>
+                    <input type="file" class="item-image-upload" name="item_image_upload[]" id="item_image_upload_${itemCounter}" accept="image/*" onchange="previewImage(this)">
+                    <input type="hidden" class="item-image-data" name="item_image_data[]">
+                    <div class="image-preview-container" style="margin-top: 10px; border: 1px solid #ddd; padding: 5px; text-align: center; display: none;">
+                        <img class="item-image-preview" src="" alt="Image Preview" style="max-width: 100px; max-height: 100px; display: none;">
+                    </div>
+                </div>
+                <label for="item_spec_${itemCounter}">Spec:</label>
+                <input type="text" class="item-spec" name="item_spec[]" id="item_spec_${itemCounter}" placeholder="e.g., Oud-2">
+                <label for="item_qty_${itemCounter}">Qty:</label>
+                <input type="number" class="item-qty" name="item_qty[]" id="item_qty_${itemCounter}" min="1" value="1" required>
+                <label for="item_uom_${itemCounter}">UOM:</label>
+                <input type="text" class="item-uom" name="item_uom[]" id="item_uom_${itemCounter}" placeholder="e.g., PCS" required>
+                <label for="item_unit_price_${itemCounter}">Unit Price (Rp):</label>
+                <input type="number" class="item-unit-price" name="item_unit_price[]" id="item_unit_price_${itemCounter}" min="0" value="0" step="1000" required>
+                <label for="item_amount_${itemCounter}">Amount (Rp):</label>
+                <input type="text" class="item-amount" name="item_amount[]" id="item_amount_${itemCounter}" value="0" readonly>
+                <div class="item-actions">
+                    <button type="button" class="btn btn-danger" onclick="removeItem(this)">Remove Item</button>
+                </div>
+            `;
+            container.appendChild(newItem);
+            updateItemAmount(newItem);
+            // Add event listener for the newly added image upload input
+            newItem.querySelector('.item-image-upload').addEventListener('change', function() {
+                previewImage(this);
+            });
+        }
+
+        function removeItem(button) {
+            const container = document.getElementById('product-items-container');
+            if (container.children.length > 1) {
+                button.closest('.item-group').remove();
+            } else {
+                alert("You must have at least one product item.");
+            }
+        }
+
+        function updateItemAmount(itemGroup) {
+            const qtyInput = itemGroup.querySelector('.item-qty');
+            const unitPriceInput = itemGroup.querySelector('.item-unit-price');
+            const amountInput = itemGroup.querySelector('.item-amount');
+            const qty = parseFloat(qtyInput.value) || 0;
+            const unitPrice = parseFloat(unitPriceInput.value) || 0;
+            const amount = qty * unitPrice;
+            amountInput.value = formatRupiahDisplay(amount); // Menggunakan formatRupiahDisplay untuk input field
+        }
+
+        // Fungsi baru untuk pratinjau gambar dan konversi Base64
+        function previewImage(input) {
+            const itemGroup = input.closest('.item-group');
+            const previewContainer = itemGroup.querySelector('.image-preview-container');
+            const imgPreview = itemGroup.querySelector('.item-image-preview');
+            const imageDataInput = itemGroup.querySelector('.item-image-data');
+
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    imgPreview.src = e.target.result;
+                    imgPreview.style.display = 'block';
+                    previewContainer.style.display = 'block';
+                    imageDataInput.value = e.target.result; // Store Base64 data
+                };
+                reader.readAsDataURL(input.files[0]);
+            } else {
+                imgPreview.src = '';
+                imgPreview.style.display = 'none';
+                previewContainer.style.display = 'none';
+                imageDataInput.value = ''; // Clear stored data
+            }
+        }
+
+        // Fungsi format untuk menampilkan Rp rata kiri, nilai rata kanan
+        function formatRupiahDisplay(number) {
+            return `Rp ${number.toLocaleString('id-ID')}`; // Untuk input fields
+        }
+
+        // Fungsi format untuk konten PDF
+        function formatRupiahPdf(number) {
+            return `<span class="currency-symbol">Rp</span>${number.toLocaleString('id-ID')}`;
+        }
+        function formatRupiahTotalPdf(number) {
+             return `<span class="currency-symbol">Rp</span>${number.toLocaleString('id-ID')}`;
+        }
+
+        function generatePdf() {
+            const companySelect = document.getElementById('companyName');
+            let toCompany = companySelect.value;
+            const newCompanyNameInput = document.getElementById('newCompanyName');
+
+            console.log("--- Starting PDF Generation ---");
+
+            if (toCompany === 'addNew') {
+                toCompany = newCompanyNameInput.value.trim();
+                if (toCompany === "") {
+                    alert("Please enter the new company name.");
+                    console.log("Validation failed: New company name is empty.");
+                    return;
+                }
+                if (!defaultCompanies.includes(toCompany)) {
+                    defaultCompanies.push(toCompany);
+                    populateCompanyDropdown();
+                    document.getElementById('companyName').value = toCompany;
+                }
+            } else if (toCompany === "") {
+                alert("Please select or add a company.");
+                console.log("Validation failed: Company not selected.");
+                return;
+            }
+
+            const prNumber = document.getElementById('prNumber').value.trim();
+            if (prNumber === "") {
+                alert("Please enter PR Number.");
+                console.log("Validation failed: PR Number is empty.");
+                return;
+            }
+
+            const validityPrice = document.getElementById('validityPrice').value.trim();
+            const date = new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'long', year: 'numeric' });
+
+            const itemGroups = document.querySelectorAll('.item-group');
+            let totalAmount = 0;
+            let itemsHtml = '';
+            let itemIndex = 0;
+
+            itemGroups.forEach((group) => {
+                const description = group.querySelector('.item-description').value.trim();
+                const spec = group.querySelector('.item-spec').value.trim() || '-';
+                const qty = parseFloat(group.querySelector('.item-qty').value) || 0;
+                const uom = group.querySelector('.item-uom').value.trim();
+                const unitPrice = parseFloat(group.querySelector('.item-unit-price').value) || 0;
+                const amount = qty * unitPrice;
+                const imageData = group.querySelector('.item-image-data').value; // Get Base64 image data
+
+                if (description === "" || uom === "" || qty <= 0 || unitPrice < 0) {
+                    console.warn(`Skipping invalid item: Description="${description}", Qty=${qty}, UOM="${uom}", Unit Price=${unitPrice}`);
+                    return;
+                }
+
+                itemIndex++;
+                totalAmount += amount;
+
+                // Conditionally include image in description cell
+                const descriptionContent = `
+                    ${description}
+                    ${imageData ? `<br><img src="${imageData}" alt="Product Image" style="max-width: 100px; height: auto; display: block; margin-top: 5px;">` : ''}
+                `;
+
+                itemsHtml += `
+                    <tr>
+                        <td>${itemIndex}</td>
+                        <td>${descriptionContent}</td>
+                        <td class="spec-col">${spec}</td>
+                        <td class="qty-col">${qty}</td>
+                        <td class="uom-col">${uom}</td>
+                        <td class="unit-price-col">${formatRupiahPdf(unitPrice)}</td>
+                        <td class="amount-col">${formatRupiahPdf(amount)}</td>
+                    </tr>
+                `;
+            });
+
+            console.log("Total valid items processed:", itemIndex);
+            if (itemIndex === 0) {
+                alert("Please add at least one valid product item to generate the PDF.");
+                console.log("Validation failed: No valid items found.");
+                return;
+            }
+
+            const pdfContent = `
+                <div id="pdf-header">
+                    <h2>TOKO TERANG</h2>
+                    <p>Perumnas Pobundayan Permai, Pobundayan,</p>
+                    <p>Kotamobagu Selatan, Kotamobagu, Sulawesi Utara, 95717</p>
+                </div>
+                <div id="pdf-quotation-title">QUOTATION</div>
+
+                <div id="pdf-customer-info">
+                    <p><strong>To</strong> : ${toCompany}</p>
+                    <p><strong>Date</strong> : ${date}</p>
+                    <p><strong>PR Number</strong> : ${prNumber}</p>
+                    <p><strong>Validity Price</strong> : ${validityPrice}</p>
+                </div>
+
+                <table id="pdf-items-table">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Description</th>
+                            <th>Spec</th>
+                            <th class="qty-col">Qty</th>
+                            <th class="uom-col">UOM</th>
+                            <th>Unit Price</th>
+                            <th>Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${itemsHtml}
+                        <tr>
+                            <td colspan="6" class="label-col">TOTAL</td>
+                            <td class="value-col total-amount-col">${formatRupiahTotalPdf(totalAmount)}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div id="pdf-terms-contact">
+                    <span>Terms of Payment</span>: N30
+                    <span>Delivery Point</span>: Bubak
+                    <span>Contact Person</span>:
+                </div>
+
+                <div id="pdf-signature">
+                    <div class="signature-block-inner">
+                        <p>Hormat Kami</p>
+                        <img src="signature.png" alt="Tanda Tangan" class="signature-image">
+                        <p><strong>Mety</strong></p>
+                    </div>
+                </div>
+            `;
+
+            const element = document.getElementById('pdf-content');
+            element.innerHTML = pdfContent;
+
+            console.log("HTML content populated to #pdf-content. Initiating print dialog...");
+
+            document.title = `Quotation ${prNumber}`;
+
+            window.print();
+        }
+    </script>
+</body>
+</html>
