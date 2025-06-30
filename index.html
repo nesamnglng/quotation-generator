@@ -205,27 +205,27 @@
         }
 
         #pdf-header {
-            text-align: left;
-            margin-bottom: 25px;
+            text-align: center;
+            /* margin-bottom: 25px; */ /* Anda bisa menghapus atau mengurangi ini jika ingin header lebih dekat ke elemen di bawahnya secara umum */
         }
-        #pdf-header h2 {
+        #pdf-header h2 { /* Ini untuk nama toko */
             font-size: 18pt;
             margin: 0;
             color: #0056b3;
-            border-bottom: none;
-            padding-bottom: 0;
+            border-bottom: 2px solid #0056b3;
+            padding-bottom: 2px; /* MENGUBAH DARI 5px MENJADI 2px untuk mendekatkan garis */
+            display: inline-block;
         }
         #pdf-header p {
-            margin: 2pt 0;
-            font-size: 8pt;
-            color: #555;
+            display: none;
         }
+
         #pdf-quotation-title {
             text-align: center;
             font-size: 14pt;
             font-weight: bold;
-            margin-top: 35px;
-            margin-bottom: 25px;
+            margin-top: 15px; /* MENGUBAH DARI 35px MENJADI 15px untuk mendekatkan "QUOTATION" */
+            margin-bottom: 40px;
         }
 
         #pdf-customer-info {
@@ -256,6 +256,9 @@
         #pdf-items-table th {
             background-color: #f2f2f2;
             font-weight: bold;
+            text-align: center;
+        }
+        #pdf-items-table tbody tr td:first-child {
             text-align: center;
         }
         
@@ -349,7 +352,7 @@
                 position: relative;
                 width: 210mm; /* Lebar A4 */
                 min-height: 297mm; /* Tinggi A4 */
-                padding: 10mm 15mm !important; /* Padding halaman untuk cetak, kurangi top padding */
+                padding: 5mm 15mm !important; /* MENGUBAH TOP PADDING DARI 10mm MENJADI 5mm untuk mengurangi spasi atas */
                 box-sizing: border-box;
                 margin: 0 !important;
             }
@@ -357,6 +360,7 @@
             #pdf-content h2, #pdf-content p, #pdf-content table {
                 font-size: 9pt;
             }
+            /* Sesuaikan ukuran font untuk nama toko di PDF */
             #pdf-header h2 { font-size: 18pt; }
             #pdf-quotation-title { font-size: 14pt; }
             
@@ -595,7 +599,7 @@
             return `<span class="currency-symbol">Rp</span>${number.toLocaleString('id-ID')}`;
         }
         function formatRupiahTotalPdf(number) {
-             return `<span class="currency-symbol">Rp</span>${number.toLocaleString('id-ID')}`;
+            return `<span class="currency-symbol">Rp</span>${number.toLocaleString('id-ID')}`;
         }
 
         function generatePdf() {
@@ -684,9 +688,7 @@
             const pdfContent = `
                 <div id="pdf-header">
                     <h2>TOKO TERANG</h2>
-                    <p>Perumnas Pobundayan Permai, Pobundayan,</p>
-                    <p>Kotamobagu Selatan, Kotamobagu, Sulawesi Utara, 95717</p>
-                </div>
+                    </div>
                 <div id="pdf-quotation-title">QUOTATION</div>
 
                 <div id="pdf-customer-info">
