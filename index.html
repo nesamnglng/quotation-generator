@@ -200,20 +200,19 @@
             padding: 20px;
             font-family: Arial, sans-serif;
             font-size: 10pt;
-            color: #333;
+            color: #333; /* Default text color for PDF content */
             background-color: #fff;
         }
 
         #pdf-header {
             text-align: center;
-            /* margin-bottom: 25px; */ /* Anda bisa menghapus atau mengurangi ini jika ingin header lebih dekat ke elemen di bawahnya secara umum */
         }
         #pdf-header h2 { /* Ini untuk nama toko */
             font-size: 18pt;
             margin: 0;
-            color: #0056b3;
-            border-bottom: 2px solid #0056b3;
-            padding-bottom: 2px; /* MENGUBAH DARI 5px MENJADI 2px untuk mendekatkan garis */
+            color: black; /* Diubah menjadi hitam */
+            border-bottom: 2px solid black; /* Diubah menjadi hitam */
+            padding-bottom: 2px;
             display: inline-block;
         }
         #pdf-header p {
@@ -224,7 +223,7 @@
             text-align: center;
             font-size: 14pt;
             font-weight: bold;
-            margin-top: 15px; /* MENGUBAH DARI 35px MENJADI 15px untuk mendekatkan "QUOTATION" */
+            margin-top: 15px;
             margin-bottom: 40px;
         }
 
@@ -241,7 +240,6 @@
             width: 80px;
         }
 
-
         #pdf-items-table {
             width: 100%;
             border-collapse: collapse;
@@ -254,14 +252,15 @@
             font-size: 9pt;
         }
         #pdf-items-table th {
-            background-color: #f2f2f2;
+            background-color: #eaf1dd; /* Diubah menjadi hijau muda */
             font-weight: bold;
             text-align: center;
+            color: black; /* Pastikan teks header hitam */
         }
         #pdf-items-table tbody tr td:first-child {
             text-align: center;
         }
-        
+
         /* Styling untuk kolom harga agar Rp rata kiri, nilai rata kanan */
         #pdf-items-table .unit-price-col,
         #pdf-items-table .amount-col,
@@ -278,7 +277,6 @@
             top: 8px;
         }
 
-
         /* Rata tengah untuk qty, spec, uom */
         #pdf-items-table .qty-col,
         #pdf-items-table .spec-col,
@@ -286,25 +284,25 @@
             text-align: center;
         }
 
-
         #pdf-items-table .qty-col { width: 50px; }
         #pdf-items-table .uom-col { width: 60px; }
         /* Lebar kolom harga */
         #pdf-items-table .unit-price-col { width: 100px; }
         #pdf-items-table .amount-col, #pdf-items-table .total-amount-col { width: 100px; }
 
-
         /* Penyesuaian agar baris TOTAL menyatu */
         #pdf-items-table .label-col {
-            background-color: #f2f2f2;
+            background-color: #c2d69a; /* Diubah menjadi warna yang diminta */
             font-weight: bold;
             text-align: right;
             border-left: 1px solid #ddd;
+            color: black; /* Pastikan teks hitam */
         }
         #pdf-items-table .value-col {
+            background-color: #c2d69a; /* Background untuk nilai total */
             text-align: right;
             font-weight: bold;
-            color: #0056b3;
+            color: black; /* Diubah menjadi hitam */
         }
 
         #pdf-terms-contact {
@@ -352,7 +350,7 @@
                 position: relative;
                 width: 210mm; /* Lebar A4 */
                 min-height: 297mm; /* Tinggi A4 */
-                padding: 5mm 15mm !important; /* MENGUBAH TOP PADDING DARI 10mm MENJADI 5mm untuk mengurangi spasi atas */
+                padding: 5mm 15mm !important;
                 box-sizing: border-box;
                 margin: 0 !important;
             }
@@ -368,8 +366,8 @@
             #pdf-items-table .unit-price-col,
             #pdf-items-table .amount-col,
             #pdf-items-table .total-amount-col {
-                 text-align: right;
-                 padding-left: 25px;
+                text-align: right;
+                padding-left: 25px;
             }
             #pdf-items-table .unit-price-col .currency-symbol,
             #pdf-items-table .amount-col .currency-symbol,
@@ -385,7 +383,6 @@
                 background: transparent !important;
             }
         }
-
     </style>
 </head>
 <body>
