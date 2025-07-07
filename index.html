@@ -210,7 +210,7 @@
         #pdf-header h2 { /* Ini untuk nama toko */
             font-size: 18pt;
             margin: 0;
-            color: black; /* Diubah menjadi hitam */
+            color: black; /* Diubah menjadi hitam sesuai permintaan */
             border-bottom: 2px solid black; /* Diubah menjadi hitam */
             padding-bottom: 2px;
             display: inline-block;
@@ -242,20 +242,20 @@
 
         #pdf-items-table {
             width: 100%;
-            border-collapse: collapse;
+            border-collapse: collapse; /* Penting untuk garis tabel */
             margin-top: 0px;
         }
         #pdf-items-table th, #pdf-items-table td {
-            border: 1px solid #ddd;
+            border: 1px solid #ddd; /* Pastikan semua sel memiliki border */
             padding: 8px;
             vertical-align: top;
             font-size: 9pt;
         }
         #pdf-items-table th {
-            background-color: #eaf1dd; /* Diubah menjadi hijau muda */
+            background-color: #eaf1dd; /* Warna hijau muda untuk header tabel */
             font-weight: bold;
             text-align: center;
-            color: black; /* Pastikan teks header hitam */
+            color: black; /* Teks header hitam */
         }
         #pdf-items-table tbody tr td:first-child {
             text-align: center;
@@ -291,18 +291,18 @@
         #pdf-items-table .amount-col, #pdf-items-table .total-amount-col { width: 100px; }
 
         /* Penyesuaian agar baris TOTAL menyatu */
-        #pdf-items-table .label-col {
-            background-color: #c2d69a; /* Diubah menjadi warna yang diminta */
+        #pdf-items-table .label-col,
+        #pdf-items-table .value-col {
+            background-color: #c2d69a; /* Background warna yang diminta */
             font-weight: bold;
-            text-align: right;
-            border-left: 1px solid #ddd;
-            color: black; /* Pastikan teks hitam */
+            color: black; /* Teks hitam */
+            border: 1px solid #ddd !important; /* Pastikan border muncul di sini */
+        }
+        #pdf-items-table .label-col {
+            text-align: right; /* Untuk teks "TOTAL" */
         }
         #pdf-items-table .value-col {
-            background-color: #c2d69a; /* Background untuk nilai total */
-            text-align: right;
-            font-weight: bold;
-            color: black; /* Diubah menjadi hitam */
+            text-align: right; /* Untuk nilai total */
         }
 
         #pdf-terms-contact {
