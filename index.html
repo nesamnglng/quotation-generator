@@ -35,7 +35,7 @@
         }
 
         h2 {
-            color: #333;
+            color: #0056b3;
             margin-top: 30px;
             margin-bottom: 15px;
             font-size: 1.6em;
@@ -174,7 +174,8 @@
             input[type="number"],
             textarea,
             select {
-                width: 100%; /* Full width on smaller screens */
+                width: 100%;
+                /* Full width on smaller screens */
                 padding: 10px;
             }
 
@@ -185,7 +186,8 @@
             }
 
             .btn-action-group {
-                flex-direction: column; /* Stack buttons vertically */
+                flex-direction: column;
+                /* Stack buttons vertically */
             }
 
             .btn-action-group .btn {
@@ -196,25 +198,35 @@
 
         /* PDF Content Styling (will be copied to PDF) */
         #pdf-content {
-            display: none; /* Hidden by default, shown for PDF generation */
+            display: none;
+            /* Hidden by default, shown for PDF generation */
             padding: 20px;
             font-family: Arial, sans-serif;
             font-size: 10pt;
-            color: #333; /* Default text color for PDF content */
+            color: #333;
             background-color: #fff;
         }
 
         #pdf-header {
             text-align: center;
+            /* margin-bottom: 25px; */
+            /* Anda bisa menghapus atau mengurangi ini jika ingin header lebih dekat ke elemen di bawahnya secara umum */
         }
-        #pdf-header h2 { /* Ini untuk nama toko */
-            font-size: 18pt;
+
+        #pdf-header h2 {
+            /* Ini untuk nama toko */
+            font-size: 16pt;
+            /* Ukuran sedikit lebih kecil */
             margin: 0;
-            color: black; /* Diubah menjadi hitam sesuai permintaan */
-            border-bottom: 2px solid black; /* Diubah menjadi hitam */
+            color: #007bff;
+            /* Warna biru */
+            border-bottom: 2px solid #007bff;
+            /* Warna garis bawah biru */
             padding-bottom: 2px;
+            /* MENGUBAH DARI 5px MENJADI 2px untuk mendekatkan garis */
             display: inline-block;
         }
+
         #pdf-header p {
             display: none;
         }
@@ -224,6 +236,7 @@
             font-size: 14pt;
             font-weight: bold;
             margin-top: 15px;
+            /* MENGUBAH DARI 35px MENJADI 15px untuk mendekatkan "QUOTATION" */
             margin-bottom: 40px;
         }
 
@@ -234,29 +247,36 @@
             padding-bottom: 10px;
             line-height: 1.4;
         }
-        #pdf-customer-info p { margin: 2px 0; }
+
+        #pdf-customer-info p {
+            margin: 2px 0;
+        }
+
         #pdf-customer-info strong {
             display: inline-block;
             width: 80px;
         }
 
+
         #pdf-items-table {
             width: 100%;
-            border-collapse: collapse; /* Penting untuk garis tabel */
+            border-collapse: collapse;
             margin-top: 0px;
         }
-        #pdf-items-table th, #pdf-items-table td {
-            border: 1px solid #ddd; /* Pastikan semua sel memiliki border */
+
+        #pdf-items-table th,
+        #pdf-items-table td {
+            border: 1px solid #ddd;
             padding: 8px;
             vertical-align: top;
             font-size: 9pt;
         }
+
         #pdf-items-table th {
-            background-color: #eaf1dd; /* Warna hijau muda untuk header tabel */
             font-weight: bold;
             text-align: center;
-            color: black; /* Teks header hitam */
         }
+
         #pdf-items-table tbody tr td:first-child {
             text-align: center;
         }
@@ -269,6 +289,7 @@
             position: relative;
             padding-left: 25px;
         }
+
         #pdf-items-table .unit-price-col .currency-symbol,
         #pdf-items-table .amount-col .currency-symbol,
         #pdf-items-table .total-amount-col .currency-symbol {
@@ -277,6 +298,7 @@
             top: 8px;
         }
 
+
         /* Rata tengah untuk qty, spec, uom */
         #pdf-items-table .qty-col,
         #pdf-items-table .spec-col,
@@ -284,25 +306,41 @@
             text-align: center;
         }
 
-        #pdf-items-table .qty-col { width: 50px; }
-        #pdf-items-table .uom-col { width: 60px; }
+
+        #pdf-items-table .qty-col {
+            width: 50px;
+        }
+
+        #pdf-items-table .uom-col {
+            width: 60px;
+        }
+
         /* Lebar kolom harga */
-        #pdf-items-table .unit-price-col { width: 100px; }
-        #pdf-items-table .amount-col, #pdf-items-table .total-amount-col { width: 100px; }
+        #pdf-items-table .unit-price-col {
+            width: 100px;
+        }
+
+        #pdf-items-table .amount-col,
+        #pdf-items-table .total-amount-col {
+            width: 100px;
+        }
+
 
         /* Penyesuaian agar baris TOTAL menyatu */
-        #pdf-items-table .label-col,
-        #pdf-items-table .value-col {
-            background-color: #c2d69a; /* Background warna yang diminta */
-            font-weight: bold;
-            color: black; /* Teks hitam */
-            border: 1px solid #ddd !important; /* Pastikan border muncul di sini */
-        }
         #pdf-items-table .label-col {
-            text-align: right; /* Untuk teks "TOTAL" */
+            font-weight: bold;
+            text-align: right !important;
+            /* Dipastikan rata kanan */
+            border-left: 1px solid #ddd;
+            color: #007bff;
+            /* Warna biru untuk TOTAL */
         }
+
         #pdf-items-table .value-col {
-            text-align: right; /* Untuk nilai total */
+            text-align: right;
+            font-weight: bold;
+            color: #007bff;
+            /* Warna biru untuk nilai TOTAL */
         }
 
         #pdf-terms-contact {
@@ -313,22 +351,36 @@
             gap: 2px 0px;
             margin-bottom: 20px;
         }
-        #pdf-terms-contact p { margin: 0; }
+
+        #pdf-terms-contact p {
+            margin: 0;
+        }
+
         #pdf-terms-contact span {
             font-weight: bold;
         }
 
         #pdf-signature {
             margin-top: 30px;
-            text-align: right; /* Rata kanan untuk seluruh blok tanda tangan */
+            text-align: right;
+            /* Rata kanan untuk seluruh blok tanda tangan */
         }
+
         /* Kontainer untuk teks dan gambar tanda tangan agar bisa rata tengah di dalam blok rata kanan */
         #pdf-signature .signature-block-inner {
             display: inline-block;
-            text-align: center; /* Rata tengah teks dan gambar di dalam blok ini */
+            text-align: center;
+            /* Rata tengah teks dan gambar di dalam blok ini */
         }
-        #pdf-signature p { margin: 2px 0; }
-        #pdf-signature strong { font-size: 10pt; }
+
+        #pdf-signature p {
+            margin: 2px 0;
+        }
+
+        #pdf-signature strong {
+            font-size: 10pt;
+        }
+
         #pdf-signature .signature-image {
             max-width: 100px;
             height: auto;
@@ -345,23 +397,39 @@
             body > *:not(#pdf-content) {
                 display: none !important;
             }
+
             #pdf-content {
                 display: block !important;
                 position: relative;
-                width: 210mm; /* Lebar A4 */
-                min-height: 297mm; /* Tinggi A4 */
+                width: 210mm;
+                /* Lebar A4 */
+                min-height: 297mm;
+                /* Tinggi A4 */
                 padding: 5mm 15mm !important;
+                /* MENGUBAH TOP PADDING DARI 10mm MENJADI 5mm untuk mengurangi spasi atas */
                 box-sizing: border-box;
                 margin: 0 !important;
             }
 
-            #pdf-content h2, #pdf-content p, #pdf-content table {
+            #pdf-content h2,
+            #pdf-content p,
+            #pdf-content table {
                 font-size: 9pt;
             }
+
             /* Sesuaikan ukuran font untuk nama toko di PDF */
-            #pdf-header h2 { font-size: 18pt; }
-            #pdf-quotation-title { font-size: 14pt; }
-            
+            #pdf-header h2 {
+                font-size: 16pt;
+                /* Ukuran font disesuaikan untuk cetak */
+                color: #007bff;
+                /* Warna biru untuk cetak */
+                border-bottom-color: #007bff;
+            }
+
+            #pdf-quotation-title {
+                font-size: 14pt;
+            }
+
             /* Penyesuaian untuk cetak */
             #pdf-items-table .unit-price-col,
             #pdf-items-table .amount-col,
@@ -369,6 +437,7 @@
                 text-align: right;
                 padding-left: 25px;
             }
+
             #pdf-items-table .unit-price-col .currency-symbol,
             #pdf-items-table .amount-col .currency-symbol,
             #pdf-items-table .total-amount-col .currency-symbol {
@@ -378,7 +447,9 @@
             }
 
             /* Hiden input fields in print */
-            input, textarea, select {
+            input,
+            textarea,
+            select {
                 border: none !important;
                 background: transparent !important;
             }
